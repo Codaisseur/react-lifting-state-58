@@ -1,13 +1,10 @@
-import { useState } from "react";
 const Player = (props) => {
-  const [score, setScore] = useState(0);
-
   return (
     <div style={{ border: "2px solid white", marginTop: 20 }}>
       <h3>
-        Player: {props.name} - Score: {score}
+        Player: {props.name} - Score: {props.score}
       </h3>
-      <button>+</button>
+      <button onClick={() => props.increaseScore(props.id)}>+</button>
     </div>
   );
 };

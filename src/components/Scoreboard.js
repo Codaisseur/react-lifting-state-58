@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Player from "./Player";
+import AddPlayer from "./AddPlayers";
 
 const Scoreboard = () => {
   const [players, setPlayers] = useState([
@@ -10,13 +11,6 @@ const Scoreboard = () => {
   ]);
 
   const increaseScore = (idToIncrease) => {
-    // Who we need to increase?
-    // get some id in this function?
-    // how?
-
-    // Objective: increase score of one player
-    // 1. an id
-    // 2. players array
     const updatedPlayers = players.map((p) => {
       if (p.id === idToIncrease) {
         return { id: p.id, name: p.name, score: p.score + 1 };
@@ -25,13 +19,28 @@ const Scoreboard = () => {
       }
     });
     setPlayers(updatedPlayers);
-    // console.log("Im in the parent!! who's this?", idToIncrease);
+  };
+
+  const createNewPlayer = (name) => {
+    const newPlayer = {
+      name: name,
+      score: 100,
+      id: players.length + 1,
+    };
+
+    // Have an array with all the players that are there + the new
+    const newArray = [newPlayer, ...players];
+
+    console.log("new Player", newArray);
+
+    setPlayers(newArray);
   };
 
   const sortedArray = [...players].sort((a, b) => b.score - a.score);
   return (
     <div>
       <h1>Class 58 Scores!</h1>
+      <AddPlayer createNewPlayer={createNewPlayer} />
       <div>
         {sortedArray.map((p) => (
           <Player
